@@ -1,0 +1,18 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     '/Users/ryutaro320515/Documents/42Tokyo/fdf/fdf'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _is_line_num, symObjAddr: 0x0, symBinAddr: 0x100002830, symSize: 0x120 }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _is_line_num, symObjAddr: 0x0, symBinAddr: 0x100002830, symSize: 0x120 }
+  - { offsetInCU: 0x77, offset: 0x77, size: 0x8, addend: 0x0, symName: _check_line, symObjAddr: 0x120, symBinAddr: 0x100002950, symSize: 0xD0 }
+  - { offsetInCU: 0xD7, offset: 0xD7, size: 0x8, addend: 0x0, symName: _check_extension, symObjAddr: 0x1F0, symBinAddr: 0x100002A20, symSize: 0xC0 }
+  - { offsetInCU: 0x10D, offset: 0x10D, size: 0x8, addend: 0x0, symName: _check_argv, symObjAddr: 0x2B0, symBinAddr: 0x100002AE0, symSize: 0xB6 }
+  - { offsetInCU: 0x26, offset: 0x188, size: 0x8, addend: 0x0, symName: _range_of_int, symObjAddr: 0x0, symBinAddr: 0x100002BA0, symSize: 0xD0 }
+  - { offsetInCU: 0x33, offset: 0x195, size: 0x8, addend: 0x0, symName: _range_of_int, symObjAddr: 0x0, symBinAddr: 0x100002BA0, symSize: 0xD0 }
+  - { offsetInCU: 0x85, offset: 0x1E7, size: 0x8, addend: 0x0, symName: _collect_number, symObjAddr: 0xD0, symBinAddr: 0x100002C70, symSize: 0x150 }
+  - { offsetInCU: 0xBB, offset: 0x21D, size: 0x8, addend: 0x0, symName: _is_number, symObjAddr: 0x220, symBinAddr: 0x100002DC0, symSize: 0x86 }
+  - { offsetInCU: 0x26, offset: 0x298, size: 0x8, addend: 0x0, symName: _return_error, symObjAddr: 0x0, symBinAddr: 0x100002E50, symSize: 0x26 }
+  - { offsetInCU: 0x33, offset: 0x2A5, size: 0x8, addend: 0x0, symName: _return_error, symObjAddr: 0x0, symBinAddr: 0x100002E50, symSize: 0x26 }
+  - { offsetInCU: 0x41, offset: 0x32F, size: 0x8, addend: 0x0, symName: _destructor, symObjAddr: 0x0, symBinAddr: 0x100002E80, symSize: 0x20 }
+  - { offsetInCU: 0x56, offset: 0x344, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x20, symBinAddr: 0x100002EA0, symSize: 0x94 }
+...

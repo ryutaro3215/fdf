@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+		{
+				"name": "Debug fdf",
+				"type": "cppdbg",
+				"request": "launch",
+				"program": "${workspaceFolder}/fdf",
+				"args": [],
+				"stopAtEntry": false,
+				"cwd": "/Users/ryutaro320515/Documents/42Tokyo/fdf",
+				"environment": [],
+				"externalConsole": false,
+				"MIMode": "lldb",
+				"preLaunchTask": "Build fdf",
+		}
+	]
+}

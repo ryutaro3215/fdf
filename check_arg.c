@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:01:09 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/01 18:10:51 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/04 18:57:45 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	check_line(char *line)
 	char 	**splited_line;
 	char	*tmp;
 	int		flag;
-	int		i;
 
 	if (!is_line_num(line))
 		return (0);
@@ -47,13 +46,7 @@ int	check_line(char *line)
 	else
 		flag = 1;
 	free(tmp);
-	i = 0;
-	while (splited_line[i] != NULL)
-	{
-		free(splited_line[i]);
-		i++;
-	}
-	free(splited_line);
+	free_array(splited_line);
 	return (flag);
 }
 
