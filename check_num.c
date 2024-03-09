@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 18:02:10 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/01 18:02:15 by ryutaro3205      ###   ########.fr       */
+/*   Created: 2024/03/05 20:54:15 by ryutaro3205       #+#    #+#             */
+/*   Updated: 2024/03/06 23:23:09 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	collect_number(char *number)
 		return (0);
 	while (number[index] != '\0')
 	{
-		if (!ft_isdigit(number[index]) && number[index] != '\n' && number[index] != '\0')
+		if (!ft_isdigit(number[index]))
 			return (0);
 		index++;
 	}
@@ -62,18 +62,24 @@ int	collect_number(char *number)
 	return (1);
 }
 
-int	is_number(char **arg_list)
+bool	eachline_num(char **split)
 {
-	int i;
+	int		i;
+	char	*copy;
 
 	i = 0;
-	if (!arg_list)
-		return (0);
-	while (arg_list[i] != NULL)
+	while (split[i] != NULL)
 	{
-		if (!collect_number(arg_list[i]))
-			return (0);
+		copy = ft_copy_to_char(split[i], ',');
+		if (!copy)
+			return (false);
+		if (!collect_number(copy))
+		{
+			free(copy);
+			return (false);
+		}
+		free(copy);
 		i++;
 	}
-	return (1);
+	return (true);
 }

@@ -6,7 +6,7 @@
 				"type": "cppdbg",
 				"request": "launch",
 				"program": "${workspaceFolder}/fdf",
-				"args": [],
+				"args": ["test.fdf"],
 				"stopAtEntry": false,
 				"cwd": "/Users/ryutaro320515/Documents/42Tokyo/fdf",
 				"environment": [],
