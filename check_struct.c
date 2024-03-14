@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 10:35:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/06 10:36:14 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/10 20:12:28 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	get_each_width(int fd, char *line, char **split, t_fdf *env)
 	{
 		width = 0;
 		free(line);
-		free_2d_array(split);
+		free_2d_array((void **)split);
 		line = get_next_line(fd);
 		if (line == NULL)
 			return ;
@@ -50,7 +50,7 @@ void	get_each_width(int fd, char *line, char **split, t_fdf *env)
 		if (width != env->map->width)
 		{
 			free(line);
-			free_2d_array(split);
+			free_2d_array((void **)split);
 			env->map->width = -1;
 			return ;
 		}

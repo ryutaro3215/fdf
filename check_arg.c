@@ -6,13 +6,13 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:07:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/07 15:09:23 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/14 16:56:30 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-bool	init_map(t_fdf *env)
+bool	malloc_map(t_fdf *env)
 {
 	int	i;
 
@@ -25,12 +25,14 @@ bool	init_map(t_fdf *env)
 		env->map->z_matrix[i] = (t_point *)malloc(sizeof(t_point) * (env->map->width + 1));
 		if (!env->map->z_matrix[i])
 		{
-			free(env->map->z_matrix);
 			free_2d_array((void **)env->map->z_matrix);
+			free(env->map);
 			return (false);
 		}
 		env->map->z_matrix[i + 1] = NULL;
 	}
+	env->map->z_min = 0;
+	env->map->z_max = 0;
 	return (true);
 }
 
@@ -92,7 +94,7 @@ bool	check_lines(char *file, t_fdf *env)
 		return (false);
 	if (!lines_num(file))
 		return (false);
-	if (!init_map(env))
+	if (!malloc_map(env))
 		return (false);
 	if (!fill_map(file, env))
 		return (false);
@@ -105,5 +107,6 @@ bool	check_argv(char *file, t_fdf *env)
 		return (false);
 	if (!check_lines(file, env))
 		return (false);
+	get_min_max(env);
 	return (true);
 }

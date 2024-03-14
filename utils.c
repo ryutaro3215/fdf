@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 22:10:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/07 10:23:38 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/14 16:46:53 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,25 @@ int	hex_to_dec(char *hex_string)
 		i++;
 	}
 	return (decimal_value);
+}
+
+void	get_min_max(t_fdf *env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < env->map->height)
+	{
+		j = 0;
+		while (j < env->map->width)
+		{
+			if (env->map->z_matrix[i][j].z > env->map->z_max)
+				env->map->z_max = env->map->z_matrix[i][j].z;
+			if (env->map->z_matrix[i][j].z < env->map->z_min)
+				env->map->z_min = env->map->z_matrix[i][j].z;
+			j++;
+		}
+		i++;
+	}
 }
