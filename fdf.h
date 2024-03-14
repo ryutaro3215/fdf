@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/09 14:12:06 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/14 16:50:06 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@
 # include <math.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <math.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1020
+# define HEIGHT 960
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
+	int		x;
+	int		y;
+	int		z;
+	int		color;
+	bool	end_point;
 }		t_point;
 
 typedef struct s_map
@@ -41,22 +43,31 @@ typedef struct s_map
 	int		z_max;
 }		t_map;
 
+typedef struct s_camera
+{
+	int		zoom;
+	int		shift_x;
+	int		shift_y;
+	int		rotation;
+}	t_camera;
+
 typedef struct s_fdf
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		len_size;
-	int		endian;
-	int		steep;
-	t_map	*map;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			len_size;
+	int			endian;
+	t_map		*map;
+	t_camera	*camera;
 }		t_fdf;
 
 /*initialize*/
-bool	init_map(t_fdf *env);
 bool	init_env(t_fdf *env);
+bool	init_map(t_fdf *env);
+bool	init_camera(t_fdf *env);
 
 /*check argument*/
 bool	check_argv(char *file, t_fdf *env);
@@ -70,15 +81,21 @@ char	**make_split(int fd);
 bool	eachline_num(char **split);
 int		collect_number(char *number);
 int 	range_of_int(char *number);
+bool	malloc_map(t_fdf *env);
 bool	fill_map(char *file, t_fdf *env);
 void	fill_point(int i, char **split, t_fdf *env);
+
+/*draw*/
+void	draw_line(t_fdf *env);
 
 /*error*/
 int		my_error(char *str, int ret);
 void	free_2d_array(void **array);
-void	free_matrix(t_fdf *env);
+void	free_map(t_point ***map);
+void	free_env(t_fdf *env);
 /*utils*/
 char	*ft_copy_to_char(char *str, char word);
 int		hex_to_dec(char *hex_string);
+void	get_min_max(t_fdf *env);
 
 #endif

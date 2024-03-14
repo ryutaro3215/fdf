@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:09:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/07 23:59:36 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/14 11:41:37 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ int	my_error(char *str, int ret)
 	return (ret);
 }
 
-void	free_matrix(t_fdf *env)
+void	free_map(t_point ***map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (i < env->map->height)
+	while (map[i] != NULL)
 	{
-		free(env->map->z_matrix[i]);
+		j = 0;
+		while (map[i][j] != NULL)
+		{
+			free(map[i][j]);
+			j++;
+		}
+		free(map[i]);
 		i++;
 	}
-	free(env->map->z_matrix);
-}
-
-void	free_env(t_fdf *env)
-{
-	free_matrix(env);
-	free(env->map);
-	free(env);
+	free(map);
 }
 
 void	free_2d_array(void **array)
@@ -49,4 +49,16 @@ void	free_2d_array(void **array)
 		i++;
 	}
 	free(array);
+}
+
+void	free_env(t_fdf *env)
+{
+	free_2d_array((void **)env->map->z_matrix);
+	free(env->map);
+	free(env->camera);
+	free(env->mlx);
+	free(env->win);
+	free(env->img);
+	free(env->addr);
+	free(env);
 }

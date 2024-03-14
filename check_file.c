@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:14:12 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/07 15:17:57 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/14 16:57:32 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	fill_point(int i, char **split, t_fdf *env)
 			env->map->z_matrix[i][j].color = hex_to_dec(ft_strchr(split[j], ','));
 		else
 			env->map->z_matrix[i][j].color = 0xFFFFFF;
+		env->map->z_matrix[i][j].end_point = false;
 		j++;
 	}
+	env->map->z_matrix[i][j].x = 0;
+	env->map->z_matrix[i][j].y = 0;
+	env->map->z_matrix[i][j].z = 0;
+	env->map->z_matrix[i][j].color = 0;
+	env->map->z_matrix[i][j].end_point = true;
 }
