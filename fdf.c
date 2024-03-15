@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/14 17:49:32 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/15 20:48:12 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,8 @@ int main(int argc, char **argv)
 			free_env(env);
 			return (my_error("Invalid argument\n", 2));
 		}
-		for (int i = 0; env->map->z_matrix[i] != NULL; i++) {
-			for (int j = 0; env->map->z_matrix[i][j].end_point == false; j++) {
-				ft_printf("x: %d, y: %d, z: %d, color: %d\n", env->map->z_matrix[i][j].x, env->map->z_matrix[i][j].y, env->map->z_matrix[i][j].z, env->map->z_matrix[i][j].color);
-			}
-		}
-		// draw(env);
-		// mlx_loop(env->mlx);
+		draw(env->map, env);
+		mlx_loop(env->mlx);
 		free_env(env);
 	}
 	return (0);

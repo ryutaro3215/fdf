@@ -1,7 +1,7 @@
 NAME = fdf
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = fdf.c error.c check_file.c check_arg.c check_num.c check_struct.c utils.c initialize.c
+SRCS = fdf.c error.c check_file.c check_arg.c check_num.c check_struct.c utils.c initialize.c draw.c
 OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT = ft
