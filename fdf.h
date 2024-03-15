@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/14 16:50:06 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/15 20:49:47 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,11 @@ bool	fill_map(char *file, t_fdf *env);
 void	fill_point(int i, char **split, t_fdf *env);
 
 /*draw*/
-void	draw_line(t_fdf *env);
+void	draw_line(t_point p1, t_point p2, t_fdf *env);
+void	draw(t_point *map, t_fdf *env);
+t_point	converter(float x, float y, t_fdf *env);
+int		ft_max(int a, int b);
+int		ft_abs(int n);
 
 /*error*/
 int		my_error(char *str, int ret);
