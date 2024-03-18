@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/18 17:40:53 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/18 19:14:50 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,6 @@ void	draw_xline(t_point p1, t_point p2, t_fdf *env)
 	}
 }
 
-void	draw_yline(t_point p1, t_point p2, t_fdf *env)
-{
-	int		p1x;
-	int		p1y;
-	int		p2y;
-	int		dy;
-	char	*dst;
-
-	dst = NULL;
-	p1x = p1.x * env->camera->zoom;
-	p1y = p1.y * env->camera->zoom;
-	p2y = p2.y * env->camera->zoom;
-	p1x += env->camera->shift_x;
-	p1y += env->camera->shift_y;
-	p2y += env->camera->shift_y;
-	dy = ft_abs(p2y - p1y);
-	dy /= ft_abs(p2y - p1y);
-	while ((p2y - p1y))
-	{
-		dst = env->addr + (p1y * env->len_size + (p1x * (env->bpp / 8)));
-		*(unsigned int *)dst = 0xFF0000;
-		p1y += dy;
-	}
-}
-
 void	draw(t_fdf *env)
 {
 	int		x;
@@ -83,9 +58,9 @@ void	draw(t_fdf *env)
 		while (x < env->map->width)
 		{
 			if (x < env->map->width - 1)
-				draw_xline(env->map->z_matrix[y][x], env->map->z_matrix[y][x + 1], env);
+				draw_line(env->map->z_matrix[y][x], env->map->z_matrix[y][x + 1], env);
 			if (y < env->map->height - 1)
-				draw_yline(env->map->z_matrix[y][x], env->map->z_matrix[y + 1][x], env);
+				draw_line(env->map->z_matrix[y][x], env->map->z_matrix[y + 1][x], env);
 			x++;
 		}
 		y++;

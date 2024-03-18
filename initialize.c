@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/18 17:46:20 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/18 19:03:10 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ bool	init_camera(t_fdf *env)
 	if (!env->camera)
 		return (false);
 	env->camera->zoom = 50;
-	env->camera->shift_x = WIDTH / 2;
-	env->camera->shift_y = HEIGHT / 2;
+	env->camera->shift_x = WIDTH / 3;
+	env->camera->shift_y = HEIGHT / 3;
 	env->camera->rotation = 1;
 	return (true);
 }
