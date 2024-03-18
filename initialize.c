@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/14 17:49:36 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/18 12:22:44 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	init_camera(t_fdf *env)
 	env->camera = (t_camera *)malloc(sizeof(t_camera));
 	if (!env->camera)
 		return (false);
-	env->camera->zoom = 20;
+	env->camera->zoom = 50;
 	env->camera->shift_x = WIDTH / 2;
 	env->camera->shift_y = HEIGHT / 2;
 	env->camera->rotation = 1;

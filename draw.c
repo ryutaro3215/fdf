@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/15 20:50:44 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/18 17:40:53 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,51 +19,75 @@ int	ft_abs(int n)
 	return (n);
 }
 
-int	ft_max(int a, int b)
+void	draw_xline(t_point p1, t_point p2, t_fdf *env)
 {
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-t_point	converter(float x, float y, t_fdf *env)
-{
-	t_point	point;
-
-	point.x *= env->camera->zoom;
-	point.y *= env->camera->zoom;
-	point.x += env->camera->shift_x;
-	point.y += env->camera->shift_y;
-	point.color = env->map->z_matrix[(int)y][(int)x].color;
-	return (point);
-}
-
-void	draw_line(t_point p1, t_point p2, t_fdf *env)
-{
+	int		p1x;
+	int		p1y;
+	int		p2x;
+	int		dx;
 	char	*dst;
 
-	dst = env->addr + ((int)p1.y * env->len_size) + (int)p1.x * (env->bpp / 8);
+	dst = NULL;
+	p1x = p1.x * env->camera->zoom;
+	p1y = p1.y * env->camera->zoom;
+	p2x = p2.x * env->camera->zoom;
+	p1x += env->camera->shift_x;
+	p1y += env->camera->shift_y;
+	p2x += env->camera->shift_x;
+	dx = ft_abs(p2x - p1x);
+	dx /= ft_abs(p2x - p1x);
+	while ((p2x - p1x))
+	{
+		dst = env->addr + (p1y * env->len_size + (p1x * (env->bpp / 8)));
+		*(unsigned int *)dst = 0x00ff00;
+		p1x += dx;
+	}
 }
 
-void	draw(t_map *map, t_fdf *env)
+void	draw_yline(t_point p1, t_point p2, t_fdf *env)
 {
-	int	x;
-	int	y;
+	int		p1x;
+	int		p1y;
+	int		p2y;
+	int		dy;
+	char	*dst;
 
-	ft_bzero(env->addr, WIDTH * HEIGHT * (env->bpp / 8));
+	dst = NULL;
+	p1x = p1.x * env->camera->zoom;
+	p1y = p1.y * env->camera->zoom;
+	p2y = p2.y * env->camera->zoom;
+	p1x += env->camera->shift_x;
+	p1y += env->camera->shift_y;
+	p2y += env->camera->shift_y;
+	dy = ft_abs(p2y - p1y);
+	dy /= ft_abs(p2y - p1y);
+	while ((p2y - p1y))
+	{
+		dst = env->addr + (p1y * env->len_size + (p1x * (env->bpp / 8)));
+		*(unsigned int *)dst = 0xFF0000;
+		p1y += dy;
+	}
+}
+
+void	draw(t_fdf *env)
+{
+	int		x;
+	int		y;
+
+	x = 0;
 	y = 0;
+	ft_bzero(env->addr, WIDTH * HEIGHT * (env->bpp / 8));
 	while (y < env->map->height)
 	{
 		x = 0;
 		while (x < env->map->width)
 		{
 			if (x < env->map->width - 1)
-				draw_line(converter(x, y, env), converter(x + 1, y, env), env);
+				draw_xline(env->map->z_matrix[y][x], env->map->z_matrix[y][x + 1], env);
 			if (y < env->map->height - 1)
-				draw_line(converter(x, y, env), converter(x, y + 1, env), env);
+				draw_yline(env->map->z_matrix[y][x], env->map->z_matrix[y + 1][x], env);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }
