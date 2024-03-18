@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
 /*   Updated: 2024/03/17 22:25:23 by ryutaro3205      ###   ########.fr       */
@@ -17,7 +17,7 @@ static void destructor() {
     system("leaks -q fdf");
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_fdf	*env;
 

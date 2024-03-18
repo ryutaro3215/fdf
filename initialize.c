@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/18 12:22:44 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/18 17:46:20 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ bool	init_env(t_fdf *env)
 	env->img = mlx_new_image(env->mlx, 1020, 960);
 	if (!env->img)
 		return (false);
-	env->addr = mlx_get_data_addr(env->img, &env->bpp, &env->len_size, &env->endian);
+	env->addr = mlx_get_data_addr(env->img, &env->bpp,
+			&env->len_size, &env->endian);
 	if (!env->addr)
 		return (false);
 	if (!init_map(env))
