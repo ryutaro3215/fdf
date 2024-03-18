@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   check_num.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:54:15 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/06 23:23:09 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/14 17:56:54 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int range_of_int(char *number)
+int	range_of_int(char *number)
 {
-	int i;
+	int		i;
 	long	l_number;
-	int sign;
+	int		sign;
 
 	i = 0;
 	sign = 1;
