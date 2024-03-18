@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:07:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/14 16:56:30 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/14 17:54:41 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ bool	malloc_map(t_fdf *env)
 {
 	int	i;
 
-	env->map->z_matrix = (t_point **)malloc(sizeof(t_point *) * (env->map->height + 1));
+	env->map->z_matrix = (t_point **)malloc(sizeof(t_point *)
+			* (env->map->height + 1));
 	if (!env->map->z_matrix)
 		return (false);
 	i = -1;
 	while (++i < env->map->height)
 	{
-		env->map->z_matrix[i] = (t_point *)malloc(sizeof(t_point) * (env->map->width + 1));
+		env->map->z_matrix[i] = (t_point *)malloc(sizeof(t_point)
+				* (env->map->width + 1));
 		if (!env->map->z_matrix[i])
 		{
 			free_2d_array((void **)env->map->z_matrix);
