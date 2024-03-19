@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/18 15:04:47 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/19 17:06:34 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define WIDTH 1020
 # define HEIGHT 960
+# define ESCAPE 53
 
 typedef struct s_point
 {
@@ -87,9 +88,13 @@ void	fill_point(int i, char **split, t_fdf *env);
 
 /*draw*/
 void	draw(t_fdf *env);
-void	draw_line(t_point p1, t_point p2, t_fdf *env);
-int		ft_abs(int n);
-
+void	draw_line(float x, float y, float x1, float y1, t_fdf *env);
+float	ft_abs(float n);
+float	ft_max(float a, float b);
+/*hook*/
+void	hook_control(t_fdf *env);
+int		key_press(int keycode, t_fdf *env);
+int		close_window(t_fdf *env);
 /*error*/
 int		my_error(char *str, int ret);
 void	free_2d_array(void **array);

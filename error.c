@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:09:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/14 11:41:37 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/19 16:50:59 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	free_env(t_fdf *env)
 	free_2d_array((void **)env->map->z_matrix);
 	free(env->map);
 	free(env->camera);
-	free(env->mlx);
-	free(env->win);
-	free(env->img);
 	free(env->addr);
+	free(env->img);
+	free(env->win);
+	free(env->mlx);
 	free(env);
 }

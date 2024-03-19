@@ -6,41 +6,72 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/18 19:14:50 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:07:31 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	ft_abs(int n)
+float	ft_abs(float n)
 {
 	if (n < 0)
 		return (-n);
 	return (n);
 }
 
-void	draw_xline(t_point p1, t_point p2, t_fdf *env)
+float	ft_max(float a, float b)
 {
-	int		p1x;
-	int		p1y;
-	int		p2x;
-	int		dx;
-	char	*dst;
+	if (a > b)
+		return (a);
+	return (b);
+}
 
-	dst = NULL;
-	p1x = p1.x * env->camera->zoom;
-	p1y = p1.y * env->camera->zoom;
-	p2x = p2.x * env->camera->zoom;
-	p1x += env->camera->shift_x;
-	p1y += env->camera->shift_y;
-	p2x += env->camera->shift_x;
-	dx = ft_abs(p2x - p1x);
-	dx /= ft_abs(p2x - p1x);
-	while ((p2x - p1x))
+void	isometric(float *x, float *y, int z, t_fdf *env)
+{
+	float	previous_x;
+	float	previous_y;
+
+	(void)env;
+	previous_x = *x;
+	previous_y = *y;
+	*x = (previous_x - previous_y) * cos(0.523599);
+	*y = -z + (previous_x + previous_y) * sin(0.523599);
+}
+
+void	draw_line(float x, float y, float x1, float y1, t_fdf *env)
+{
+	float	dx;
+	float	dy;
+	int		max;
+	int		z;
+	int		z1;
+
+	z = env->map->z_matrix[(int)y][(int)x].z;
+	z1 = env->map->z_matrix[(int)y1][(int)x1].z;
+
+	x *= env->camera->zoom;
+	y *= env->camera->zoom;
+	x1 *= env->camera->zoom;
+	y1 *= env->camera->zoom;
+
+	isometric(&x, &y, z, env);
+	isometric(&x1, &y1, z1, env);
+
+	x += env->camera->shift_x;
+	y += env->camera->shift_y;
+	x1 += env->camera->shift_x;
+	y1 += env->camera->shift_y;
+
+	dx = x1 - x;
+	dy = y1 - y;
+	max = ft_max(ft_abs(dx), ft_abs(dy));
+	dx /= max;
+	dy /= max;
+	while ((int)(x - x1) || (int)(y - y1))
 	{
-		dst = env->addr + (p1y * env->len_size + (p1x * (env->bpp / 8)));
-		*(unsigned int *)dst = 0x00ff00;
-		p1x += dx;
+		mlx_pixel_put(env->mlx, env->win, x, y, 0x00FF00);
+		x += dx;
+		y += dy;
 	}
 }
 
@@ -58,9 +89,9 @@ void	draw(t_fdf *env)
 		while (x < env->map->width)
 		{
 			if (x < env->map->width - 1)
-				draw_line(env->map->z_matrix[y][x], env->map->z_matrix[y][x + 1], env);
+				draw_line(x, y, x + 1, y, env);
 			if (y < env->map->height - 1)
-				draw_line(env->map->z_matrix[y][x], env->map->z_matrix[y + 1][x], env);
+				draw_line(x, y, x, y + 1, env);
 			x++;
 		}
 		y++;
