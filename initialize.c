@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:08:55 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:51:26 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ bool	init_camera(t_fdf *env)
 	env->camera = (t_camera *)malloc(sizeof(t_camera));
 	if (!env->camera)
 		return (false);
-	env->camera->zoom = 50;
-	env->camera->shift_x = WIDTH / 2;
-	env->camera->shift_y = HEIGHT / 2;
-	env->camera->rotation = 1;
+	env->camera->zoom = ft_min(WIDTH / env->map->width / 2,
+			HEIGHT / env->map->height / 2);
+	env->camera->x_angle = -0.615472907;
+	env->camera->y_angle = -0.523599;
+	env->camera->z_angle = 0.615472907;
+	env->camera->z_height = 1;
+	env->camera->x_offset = 0;
+	env->camera->y_offset = 0;
 	return (true);
 }
 

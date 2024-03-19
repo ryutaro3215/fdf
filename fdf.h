@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:06:34 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/19 23:06:39 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_point
 	int		z;
 	int		color;
 	bool	end_point;
+	int		rev;
 }		t_point;
 
 typedef struct s_map
@@ -47,9 +48,12 @@ typedef struct s_map
 typedef struct s_camera
 {
 	int		zoom;
-	int		shift_x;
-	int		shift_y;
-	int		rotation;
+	float	x_angle;
+	float	y_angle;
+	float	z_angle;
+	float	z_height;
+	int		x_offset;
+	int		y_offset;
 }	t_camera;
 
 typedef struct s_fdf
@@ -61,6 +65,7 @@ typedef struct s_fdf
 	int			bpp;
 	int			len_size;
 	int			endian;
+	int			steep;
 	t_map		*map;
 	t_camera	*camera;
 }		t_fdf;
@@ -88,9 +93,29 @@ void	fill_point(int i, char **split, t_fdf *env);
 
 /*draw*/
 void	draw(t_fdf *env);
-void	draw_line(float x, float y, float x1, float y1, t_fdf *env);
+void	draw_line(t_point p1, t_point p2, t_fdf *env);
+t_point	trans(int x, int y, t_fdf *env);
+void	rotate_x(int *y, int *z, float x_angle);
+void	rotate_y(int *x, int *z, float y_angle);
+void	rotate_z(int *x, int *y, float z_angle);
+
+/*draw_utils*/
+int		ft_min(int a, int b);
 float	ft_abs(float n);
-float	ft_max(float a, float b);
+int		ft_ipart(float n);
+float	ft_fpart(float n);
+float	ft_rfpart(float n);
+
+/*draw_pixel*/
+void	put_pixel(t_fdf *env, int x, int y, int color);
+int		ft_lerp(int first, int second, double p);
+int		ft_get_color(int x, t_point s, t_point e, float factor);
+
+/*draw_line*/
+void	ft_swap(int *a, int *b);
+void	draw_line_loop(t_point p1, t_point p2, float grad, t_fdf *env);
+
+
 /*hook*/
 void	hook_control(t_fdf *env);
 int		key_press(int keycode, t_fdf *env);
@@ -104,5 +129,6 @@ void	free_env(t_fdf *env);
 char	*ft_copy_to_char(char *str, char word);
 int		hex_to_dec(char *hex_string);
 void	get_min_max(t_fdf *env);
+int		ft_min(int a, int b);
 
 #endif

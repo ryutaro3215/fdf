@@ -12,8 +12,8 @@ def print_random_numbers(width, height):
         print()
 
 def main():
-    width = int(input("幅を入力してください: "))
-    height = int(input("高さを入力してください: "))
+    width = 100
+    height = 100
 
     print_random_numbers(width, height)
 

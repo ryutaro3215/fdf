@@ -3,76 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:07:31 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/19 23:05:44 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	ft_abs(float n)
+void	rotate_x(int *y, int *z, float x_angle)
 {
-	if (n < 0)
-		return (-n);
-	return (n);
+	int	prev_y;
+
+	prev_y = *y;
+	*y = prev_y * cos(x_angle) + *z * sin(x_angle);
+	*z = prev_y * -sin(x_angle) + *z * cos(x_angle);
 }
 
-float	ft_max(float a, float b)
+void	rotate_y(int *x, int *z, float y_angle)
 {
-	if (a > b)
-		return (a);
-	return (b);
+	int	prev_x;
+
+	prev_x = *x;
+	*x = prev_x * cos(y_angle) + *z * sin(y_angle);
+	*z = prev_x * -sin(y_angle) + *z * cos(y_angle);
 }
 
-void	isometric(float *x, float *y, int z, t_fdf *env)
+void	rotate_z(int *x, int *y, float z_angle)
 {
-	float	previous_x;
-	float	previous_y;
+	t_point	prev;
 
-	(void)env;
-	previous_x = *x;
-	previous_y = *y;
-	*x = (previous_x - previous_y) * cos(0.523599);
-	*y = -z + (previous_x + previous_y) * sin(0.523599);
+	prev.x = *x;
+	prev.y = *y;
+	*x = prev.x * cos(z_angle) - prev.y * sin(z_angle);
+	*y = prev.x * sin(z_angle) + prev.y * cos(z_angle);
 }
 
-void	draw_line(float x, float y, float x1, float y1, t_fdf *env)
+t_point	trans(int x, int y, t_fdf *env)
 {
-	float	dx;
-	float	dy;
-	int		max;
-	int		z;
-	int		z1;
+	t_point	point;
 
-	z = env->map->z_matrix[(int)y][(int)x].z;
-	z1 = env->map->z_matrix[(int)y1][(int)x1].z;
-
-	x *= env->camera->zoom;
-	y *= env->camera->zoom;
-	x1 *= env->camera->zoom;
-	y1 *= env->camera->zoom;
-
-	isometric(&x, &y, z, env);
-	isometric(&x1, &y1, z1, env);
-
-	x += env->camera->shift_x;
-	y += env->camera->shift_y;
-	x1 += env->camera->shift_x;
-	y1 += env->camera->shift_y;
-
-	dx = x1 - x;
-	dy = y1 - y;
-	max = ft_max(ft_abs(dx), ft_abs(dy));
-	dx /= max;
-	dy /= max;
-	while ((int)(x - x1) || (int)(y - y1))
-	{
-		mlx_pixel_put(env->mlx, env->win, x, y, 0x00FF00);
-		x += dx;
-		y += dy;
-	}
+	point.z = env->map->z_matrix[y][x].z;
+	point.color = env->map->z_matrix[y][x].color;
+	point.x *= env->camera->zoom;
+	point.y *= env->camera->zoom;
+	point.z *= env->camera->zoom / env->camera->z_height;
+	point.x -= (env->map->width * env->camera->zoom) / 2;
+	point.y -= (env->map->height * env->camera->zoom) / 2;
+	rotate_x(&point.y, &point.z, env->camera->x_angle);
+	rotate_y(&point.x, &point.z, env->camera->y_angle);
+	rotate_z(&point.x, &point.y, env->camera->z_angle);
+	point.x += WIDTH / 2 + env->camera->x_offset;
+	point.y += (HEIGHT + env->map->height / 2 * env->camera->zoom) / 2
+		+ env->camera->y_offset;
+	return (point);
 }
 
 void	draw(t_fdf *env)
@@ -80,20 +65,24 @@ void	draw(t_fdf *env)
 	int		x;
 	int		y;
 
-	x = 0;
-	y = 0;
 	ft_bzero(env->addr, WIDTH * HEIGHT * (env->bpp / 8));
-	while (y < env->map->height)
+	y = 0;
+	if (env->camera->x_angle > 0)
+		y = env->map->height - 1;
+	while (y < env->map->height && y >= 0)
 	{
 		x = 0;
-		while (x < env->map->width)
+		if (env->camera->y_angle > 0)
+			x = env->map->width - 1;
+		while (x < env->map->width && x >= 0)
 		{
-			if (x < env->map->width - 1)
-				draw_line(x, y, x + 1, y, env);
-			if (y < env->map->height - 1)
-				draw_line(x, y, x, y + 1, env);
-			x++;
+			if (x != env->map->width - 1)
+				draw_line(trans(x, y, env), trans(x + 1, y, env), env);
+			if (y != env->map->height - 1)
+				draw_line(trans(x, y, env), trans(x, y + 1, env), env);
+			x += -2 * (env->camera->y_angle > 0) + 1;
 		}
-		y++;
+		y += -2 * (env->camera->x_angle > 0) + 1;
 	}
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }
