@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 23:06:39 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/20 19:08:32 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <math.h>
 # include <errno.h>
 # include <stdbool.h>
-# include <math.h>
 
 # define WIDTH 1020
 # define HEIGHT 960

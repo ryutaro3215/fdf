@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:51:26 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/20 16:38:54 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ bool	init_env(t_fdf *env)
 	if (!env->addr)
 		return (false);
 	if (!init_map(env))
-		return (false);
-	if (!init_camera(env))
 		return (false);
 	return (true);
 }

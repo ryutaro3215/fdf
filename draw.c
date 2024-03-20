@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 23:05:44 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/20 17:59:43 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ t_point	trans(int x, int y, t_fdf *env)
 	point.x *= env->camera->zoom;
 	point.y *= env->camera->zoom;
 	point.z *= env->camera->zoom / env->camera->z_height;
-	point.x -= (env->map->width * env->camera->zoom) / 2;
-	point.y -= (env->map->height * env->camera->zoom) / 2;
+	// point.x -= (env->map->width * env->camera->zoom) / 2;
+	// point.y -= (env->map->height * env->camera->zoom) / 2;
 	rotate_x(&point.y, &point.z, env->camera->x_angle);
 	rotate_y(&point.x, &point.z, env->camera->y_angle);
 	rotate_z(&point.x, &point.y, env->camera->z_angle);
@@ -67,22 +67,18 @@ void	draw(t_fdf *env)
 
 	ft_bzero(env->addr, WIDTH * HEIGHT * (env->bpp / 8));
 	y = 0;
-	if (env->camera->x_angle > 0)
-		y = env->map->height - 1;
 	while (y < env->map->height && y >= 0)
 	{
 		x = 0;
-		if (env->camera->y_angle > 0)
-			x = env->map->width - 1;
 		while (x < env->map->width && x >= 0)
 		{
 			if (x != env->map->width - 1)
 				draw_line(trans(x, y, env), trans(x + 1, y, env), env);
 			if (y != env->map->height - 1)
 				draw_line(trans(x, y, env), trans(x, y + 1, env), env);
-			x += -2 * (env->camera->y_angle > 0) + 1;
+			x += 1;
 		}
-		y += -2 * (env->camera->x_angle > 0) + 1;
+		y += 1;
 	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }

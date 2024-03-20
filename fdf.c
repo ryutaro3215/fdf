@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:08:11 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:44:21 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int	main(int argc, char **argv)
 		{
 			free_env(env);
 			return (my_error("Invalid argument\n", 2));
+		}
+		if (!init_camera(env))
+		{
+			free_env(env);
+			return (my_error("Failed to initialize camera\n", 2));
 		}
 		hook_control(env);
 		draw(env);

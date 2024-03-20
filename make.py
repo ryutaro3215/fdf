@@ -12,8 +12,8 @@ def print_random_numbers(width, height):
         print()
 
 def main():
-    width = 100
-    height = 100
+    width = 10
+    height = 10
 
     print_random_numbers(width, height)
 
