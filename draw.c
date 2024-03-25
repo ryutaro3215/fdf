@@ -6,12 +6,11 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/25 22:34:27 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:10:46 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 void	draw_dot(t_point point, t_fdf *env)
 {
 	char	*dst;
@@ -35,11 +34,12 @@ void	draw(t_fdf *env)
 	while (y < env->map->height)
 	{
 		x = 0;
-		while (x < env->map->width)
+		while (x < env->map->width && x >= 0)
 		{
 			draw_dot(env->map->z_matrix[y][x], env);
 			x++;
 		}
-		y++;
+		y += 1;
 	}
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }

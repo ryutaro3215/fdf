@@ -16,7 +16,6 @@ def main():
     width = 5
     height = 5
     include_color = False  # Trueにすると色コードを含む、Falseにすると含まない
-
     print_random_numbers(width, height, include_color)
 
 if __name__ == "__main__":

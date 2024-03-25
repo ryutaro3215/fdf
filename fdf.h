@@ -6,7 +6,7 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/25 22:31:24 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:11:33 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <math.h>
 # include <errno.h>
 # include <stdbool.h>
-# include <math.h>
 
 # define WIDTH 1020
 # define HEIGHT 960
@@ -47,9 +46,12 @@ typedef struct s_map
 typedef struct s_camera
 {
 	int		zoom;
-	int		shift_x;
-	int		shift_y;
-	int		rotation;
+	float	x_angle;
+	float	y_angle;
+	float	z_angle;
+	float	z_height;
+	int		x_offset;
+	int		y_offset;
 }	t_camera;
 
 typedef struct s_fdf
@@ -61,6 +63,7 @@ typedef struct s_fdf
 	int			bpp;
 	int			len_size;
 	int			endian;
+	int			steep;
 	t_map		*map;
 	t_camera	*camera;
 }		t_fdf;
@@ -104,5 +107,6 @@ void			free_env(t_fdf *env);
 char			*ft_copy_to_char(char *str, char word);
 unsigned int	hex_to_dec(char *hex_string);
 void			get_min_max(t_fdf *env);
+
 
 #endif
