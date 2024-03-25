@@ -1,21 +1,24 @@
 import random
 
-def print_random_numbers(width, height):
-    INT_MAX = 2**31 - 1
-    INT_MIN = -2**31
-
+def print_random_numbers(width, height, include_color=False):
     for _ in range(height):
         for j in range(width):
-            # INT_MIN から INT_MAX の範囲で乱数を生成
-            num = random.randint(0, 10)
-            print(f"{num}", end=" " if j < width - 1 else "")
+            num = random.randint(0, 30)  # 0から30の範囲で乱数を生成
+            if include_color:
+                # ランダムな色コードを生成（"0x"接頭辞を付けて16進数形式で）
+                color = "0x{:06x}".format(random.randint(0, 0xFFFFFF))
+                print(f"{num},{color}", end=" " if j < width - 1 else "")
+            else:
+                print(f"{num}", end=" " if j < width - 1 else "")
         print()
 
 def main():
-    width = int(input("幅を入力してください: "))
-    height = int(input("高さを入力してください: "))
+    width = 5
+    height = 5
+    include_color = False  # Trueにすると色コードを含む、Falseにすると含まない
 
-    print_random_numbers(width, height)
+    print_random_numbers(width, height, include_color)
 
 if __name__ == "__main__":
     main()
+

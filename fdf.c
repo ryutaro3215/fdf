@@ -6,16 +6,16 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:08:11 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:32:26 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q fdf");
-}
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q fdf");
+// }
 
 int	main(int argc, char **argv)
 {
@@ -33,8 +33,14 @@ int	main(int argc, char **argv)
 			free_env(env);
 			return (my_error("Invalid argument\n", 2));
 		}
+		if (!init_camera(env))
+		{
+			free_env(env);
+			return (my_error("Failed to allocate memory\n", 2));
+		}
 		hook_control(env);
 		draw(env);
+		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		mlx_loop(env->mlx);
 	}
 	return (0);

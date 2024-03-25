@@ -6,7 +6,7 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:06:34 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:31:24 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 
 typedef struct s_point
 {
-	int		x;
-	int		y;
-	int		z;
-	int		color;
-	bool	end_point;
+	int					x;
+	int					y;
+	int					z;
+	unsigned int		color;
+	bool				end_point;
 }		t_point;
 
 typedef struct s_map
@@ -66,43 +66,43 @@ typedef struct s_fdf
 }		t_fdf;
 
 /*initialize*/
-bool	init_env(t_fdf *env);
-bool	init_map(t_fdf *env);
-bool	init_camera(t_fdf *env);
+bool			init_env(t_fdf *env);
+bool			init_map(t_fdf *env);
+bool			init_camera(t_fdf *env);
 
 /*check argument*/
-bool	check_argv(char *file, t_fdf *env);
-bool	check_extension(char *file);
-bool	check_lines(char *file, t_fdf *env);
-int		get_width(char *file, t_fdf *env);
-void	get_each_width(int fd, char *line, char **split, t_fdf *env);
-int		get_height(char *file, t_fdf *env);
-bool	lines_num(char *file);
-char	**make_split(int fd);
-bool	eachline_num(char **split);
-int		collect_number(char *number);
-int 	range_of_int(char *number);
-bool	malloc_map(t_fdf *env);
-bool	fill_map(char *file, t_fdf *env);
-void	fill_point(int i, char **split, t_fdf *env);
+bool			check_argv(char *file, t_fdf *env);
+bool			check_extension(char *file);
+bool			check_lines(char *file, t_fdf *env);
+int				get_width(char *file, t_fdf *env);
+void			get_each_width(int fd, char *line, char **split, t_fdf *env);
+int				get_height(char *file, t_fdf *env);
+bool			lines_num(char *file);
+char			**make_split(int fd);
+bool			eachline_num(char **split);
+int				collect_number(char *number);
+int				range_of_int(char *number);
+bool			malloc_map(t_fdf *env);
+bool			fill_map(char *file, t_fdf *env);
+void			fill_point(int i, char **split, t_fdf *env);
 
 /*draw*/
-void	draw(t_fdf *env);
-void	draw_line(float x, float y, float x1, float y1, t_fdf *env);
-float	ft_abs(float n);
-float	ft_max(float a, float b);
+void			draw(t_fdf *env);
+void			draw_dot(t_point point, t_fdf *env);
+/*draw_utils*/
+int				ft_min(int a, int b);
 /*hook*/
-void	hook_control(t_fdf *env);
-int		key_press(int keycode, t_fdf *env);
-int		close_window(t_fdf *env);
+void			hook_control(t_fdf *env);
+int				key_press(int keycode, t_fdf *env);
+int				close_window(t_fdf *env);
 /*error*/
-int		my_error(char *str, int ret);
-void	free_2d_array(void **array);
-void	free_map(t_point ***map);
-void	free_env(t_fdf *env);
+int				my_error(char *str, int ret);
+void			free_2d_array(void **array);
+void			free_map(t_point ***map);
+void			free_env(t_fdf *env);
 /*utils*/
-char	*ft_copy_to_char(char *str, char word);
-int		hex_to_dec(char *hex_string);
-void	get_min_max(t_fdf *env);
+char			*ft_copy_to_char(char *str, char word);
+unsigned int	hex_to_dec(char *hex_string);
+void			get_min_max(t_fdf *env);
 
 #endif

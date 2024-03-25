@@ -6,7 +6,7 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/19 17:08:55 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:07:38 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ bool	init_camera(t_fdf *env)
 	env->camera = (t_camera *)malloc(sizeof(t_camera));
 	if (!env->camera)
 		return (false);
-	env->camera->zoom = 50;
-	env->camera->shift_x = WIDTH / 2;
-	env->camera->shift_y = HEIGHT / 2;
+	env->camera->zoom = ft_min(((WIDTH / env->map->width) / 2),
+			((HEIGHT / env->map->height) / 2));
+	env->camera->shift_x = (WIDTH - env->camera->zoom * env->map->width) / 2;
+	env->camera->shift_y = (HEIGHT - env->camera->zoom * env->map->height) / 2;
 	env->camera->rotation = 1;
 	return (true);
 }
@@ -53,8 +54,6 @@ bool	init_env(t_fdf *env)
 	if (!env->addr)
 		return (false);
 	if (!init_map(env))
-		return (false);
-	if (!init_camera(env))
 		return (false);
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 22:10:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/14 16:46:53 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/03/25 22:30:06 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_copy_to_char(char *str, char word)
 	return (copy);
 }
 
-int	hex_to_dec(char *hex_string)
+unsigned int	hex_to_dec(char *hex_string)
 {
 	int		decimal_value;
 	int		i;
