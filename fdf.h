@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/25 23:11:33 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:00:41 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 # define WIDTH 1020
 # define HEIGHT 960
@@ -34,6 +35,15 @@ typedef struct s_point
 	bool				end_point;
 }		t_point;
 
+typedef struct s_shifted
+{
+	float	sx;
+	float	sy;
+	float	sz;
+	int		color;
+	bool 	end_point;
+}		t_shifted;
+
 typedef struct s_map
 {
 	int		width;
@@ -46,12 +56,11 @@ typedef struct s_map
 typedef struct s_camera
 {
 	int		zoom;
-	float	x_angle;
-	float	y_angle;
-	float	z_angle;
-	float	z_height;
-	int		x_offset;
-	int		y_offset;
+	float	shift_x;
+	float	shift_y;
+	float	angle_x;
+	float	angle_y;
+	float	angle_z;
 }	t_camera;
 
 typedef struct s_fdf
@@ -91,8 +100,16 @@ void			fill_point(int i, char **split, t_fdf *env);
 
 /*draw*/
 void			draw(t_fdf *env);
-void			draw_dot(t_point point, t_fdf *env);
+void			draw_line(t_shifted point1, t_shifted point2, t_fdf *env);
+t_shifted		shift_point(t_point point, t_fdf *env);
+void			rotate_x(float *shifted_y, float *shifted_z, t_fdf *env);
+void			rotate_y(float *shifted_x, float *shifted_z, t_fdf *env);
+void			rotate_z(float *shifted_x, float *shifted_y, t_fdf *env);
+void			draw_xline(t_shifted point1, t_shifted point2, t_fdf *env);
+void			draw_yline(t_shifted point1, t_shifted point2, t_fdf *env);
 /*draw_utils*/
+int				ft_max(int a, int b);
+int				ft_abs(int a);
 int				ft_min(int a, int b);
 /*hook*/
 void			hook_control(t_fdf *env);

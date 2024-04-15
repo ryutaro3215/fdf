@@ -3,7 +3,7 @@ import random
 def print_random_numbers(width, height, include_color=False):
     for _ in range(height):
         for j in range(width):
-            num = random.randint(0, 30)  # 0から30の範囲で乱数を生成
+            num = random.randint(0, 10)  # 0から30の範囲で乱数を生成
             if include_color:
                 # ランダムな色コードを生成（"0x"接頭辞を付けて16進数形式で）
                 color = "0x{:06x}".format(random.randint(0, 0xFFFFFF))
@@ -13,11 +13,10 @@ def print_random_numbers(width, height, include_color=False):
         print()
 
 def main():
-    width = 5
-    height = 5
+    width = 10
+    height = 10
     include_color = False  # Trueにすると色コードを含む、Falseにすると含まない
     print_random_numbers(width, height, include_color)
 
 if __name__ == "__main__":
     main()
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/25 23:12:56 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:30:07 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ bool	init_camera(t_fdf *env)
 	if (!env->camera)
 		return (false);
 	env->camera->zoom = ft_min(((WIDTH / env->map->width) / 2),
-			((HEIGHT / env->map->height) / 2));
-	env->camera->shift_x = (WIDTH - env->camera->zoom * env->map->width) / 2;
+			((HEIGHT / env->map->height)) / 2);
+	env->camera->shift_x = WIDTH/ 2;
 	env->camera->shift_y = (HEIGHT - env->camera->zoom * env->map->height) / 2;
-	env->camera->rotation = 1;
+	env->camera->angle_x = -35.264 * M_PI / 180;
+	env->camera->angle_y = -35.264 * M_PI / 180;
+	env->camera->angle_z = 35.264 * M_PI / 180;
 	return (true);
 }
 

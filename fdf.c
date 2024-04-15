@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/25 23:12:26 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:23:01 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q fdf");
-// }
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q fdf");
+}
 
 int	main(int argc, char **argv)
 {
@@ -28,19 +28,13 @@ int	main(int argc, char **argv)
 	{
 		if (!init_env(env))
 			return (my_error("Failed to initialize environment\n", 2));
-		if (!check_argv(argv[1], env))
+		if (!check_argv(argv[1], env) || !init_camera(env))
 		{
-			free_env(env);
-			return (my_error("Invalid argument\n", 2));
-		}
-		if (!init_camera(env))
-		{
-			free_env(env);
-			return (my_error("Failed to allocate memory\n", 2));
+			ft_putstr_fd("Error\n", 2);
+			exit (0);
 		}
 		hook_control(env);
 		draw(env);
-		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		mlx_loop(env->mlx);
 	}
 	return (0);
