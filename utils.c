@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 22:10:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/17 20:03:12 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 11:55:47 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ char	*rem_newline(char *line)
 	return (remed_str);
 }
 
-int	ft_min(int a, int b)
+int	ft_max(int a, int b)
 {
-	if (a < b)
+	if (a > b)
 		return (a);
 	return (b);
 }

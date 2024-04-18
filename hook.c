@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:30:19 by rmatsuba          #+#    #+#             */
-/*   Updated: 2024/04/18 00:00:40 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 11:39:29 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,40 +36,40 @@ int	key_press(int keycode, t_fdf *env)
 	return (0);
 }
 
-int	my_mouse_down(int button, t_fdf *env)
-{
-	if (button == MOUSE_WHEEL_DOWN)
-	{
-		if (env->camera->zoom >= 800)
-			return (0);
-		else
-		{
-			env->camera->zoom += 1;
-			draw(env);
-		}
-	}
-	return (0);
-}
+// int	my_mouse_down(int button, t_fdf *env)
+// {
+// 	if (button == MOUSE_WHEEL_DOWN)
+// 	{
+// 		if (env->camera->zoom >= 800)
+// 			return (0);
+// 		else
+// 		{
+// 			env->camera->zoom += 1;
+// 			draw(env);
+// 		}
+// 	}
+// 	return (0);
+// }
 
-int	my_mouse_up(int button, t_fdf *env)
-{
-	if (button == MOUSE_WHEEL_UP)
-	{
-		if (env->camera->zoom <= 1)
-			return (0);
-		else
-		{
-			env->camera->zoom -= 1;
-			draw(env);
-		}
-	}
-	return (0);
-}
+// int	my_mouse_up(int button, t_fdf *env)
+// {
+// 	if (button == MOUSE_WHEEL_UP)
+// 	{
+// 		if (env->camera->zoom <= 1)
+// 			return (0);
+// 		else
+// 		{
+// 			env->camera->zoom -= 1;
+// 			draw(env);
+// 		}
+// 	}
+// 	return (0);
+// }
 
 void	hook_control(t_fdf *env)
 {
 	mlx_hook(env->win, 2, 0, key_press, env);
-	mlx_hook(env->win, 4, 0, my_mouse_down, env);
-	mlx_hook(env->win, 5, 0, my_mouse_up, env);
+	// mlx_hook(env->win, 4, 0, my_mouse_down, env);
+	// mlx_hook(env->win, 5, 0, my_mouse_up, env);
 	mlx_hook(env->win, 17, 0, close_window, env);
 }

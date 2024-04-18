@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 00:37:07 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 13:29:03 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # define WIDTH 1500
 # define HEIGHT 950
 # define ESCAPE 53
-# define MOUSE_WHEEL_UP 4
-# define MOUSE_WHEEL_DOWN 5
 
 typedef struct s_point
 {
@@ -127,7 +125,7 @@ void			hook_control(t_fdf *env);
 char			*ft_copy_to_char(char *str, char word);
 void			get_min_max(t_fdf *env);
 char			*rem_newline(char *line);
-int				ft_min(int a, int b);
+int				ft_max(int a, int b);
 
 /* error */
 void			my_error(char *str, int ret);

@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:32:55 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 00:23:34 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 13:53:15 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ t_point	shift_point(t_point point, t_fdf *env)
 	shifted_point.x = point.x * env->camera->zoom;
 	shifted_point.y = point.y * env->camera->zoom;
 	shifted_point.z = point.z * env->camera->zoom;
+	shifted_point.x -= (env->map->width * env->camera->zoom) / 2;
+	shifted_point.y -= (env->map->height * env->camera->zoom) / 2;
 	rotate_x(&shifted_point.y, &shifted_point.z, env->camera->angle_x);
 	rotate_y(&shifted_point.x, &shifted_point.z, env->camera->angle_y);
 	rotate_z(&shifted_point.x, &shifted_point.y, env->camera->angle_z);
-	shifted_point.x += env->camera->shift_x;
-	shifted_point.y += env->camera->shift_y;
+	shifted_point.x += WIDTH / 2;
+	shifted_point.y += HEIGHT / 2;
 	shifted_point.color = point.color;
 	shifted_point.reverse = 0;
 	return (shifted_point);

@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 23:55:45 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 00:36:41 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 12:00:54 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ unsigned int	hex_to_dec(char *hex_string)
 
 int	make_rgb(int start_color, int end_color, float percent)
 {
-	if (start_color == end_color)
-		return (start_color);
 	return ((int)(start_color + (end_color - start_color) * percent));
 }
 
@@ -48,6 +46,8 @@ int color_gradation(int x, t_point p1, t_point p2, float gradient)
 	float percent;
 	int r, g, b;
 
+	if (p1.color == p2.color)
+		return (p1.color);
 	if (p2.x != p1.x)
 		percent = (float)(x - p1.x) / (float)(p2.x - p1.x);
 	else
