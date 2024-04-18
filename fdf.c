@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/04 22:23:01 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/17 13:34:34 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@ static void destructor() {
 int	main(int argc, char **argv)
 {
 	t_fdf	*env;
-
-	env = (t_fdf *)malloc(sizeof(t_fdf));
-	if (!env)
-		return (my_error("Failed to allocate memory\n", 2));
+	(void)argv;
 	if (argc == 2)
 	{
-		if (!init_env(env))
-			return (my_error("Failed to initialize environment\n", 2));
-		if (!check_argv(argv[1], env) || !init_camera(env))
-		{
-			ft_putstr_fd("Error\n", 2);
-			exit (0);
-		}
-		hook_control(env);
+		env = init_env();
+		if (!env || !check_extension(argv[1]))
+			my_error("env Error\n", 1);
+		env->map = init_map();
+		if (!env->map)
+			my_error("map Error\n", 1);
+		check_argv(argv[1], env);
+		env->camera = init_camera(env);
 		draw(env);
+		hook_control(env);
 		mlx_loop(env->mlx);
 	}
+	else
+		my_error("Invalid argument number\n", 1);
+	ft_printf("success\n");
 	return (0);
 }

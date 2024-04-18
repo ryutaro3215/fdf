@@ -6,93 +6,73 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/10 22:34:28 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 00:34:42 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	rotate_x(float *shifted_y, float *shifted_z, t_fdf *env)
+void	put_pixel(t_fdf *env, int x, int y, int color)
 {
-	float	previous_y;
+	int		dst;
 
-	previous_y = *shifted_y;
-	*shifted_y = previous_y * cos(env->camera->angle_x) + *shifted_z * sin(env->camera->angle_x);
-	*shifted_z = previous_y * -sin(env->camera->angle_x) + *shifted_z * cos(env->camera->angle_x);
-}
-
-void	rotate_y(float *shifted_x, float *shifted_z, t_fdf *env)
-{
-	float	previous_x;
-
-	previous_x = *shifted_x;
-	*shifted_x = previous_x * cos(env->camera->angle_y) + *shifted_z * sin(env->camera->angle_y);
-	*shifted_z = previous_x * -sin(env->camera->angle_y) + *shifted_z * cos(env->camera->angle_y);
-}
-
-void	rotate_z(float *shifted_x, float *shifted_y, t_fdf *env)
-{
-	float	previous_x;
-	float	previous_y;
-
-	previous_x = *shifted_x;
-	previous_y = *shifted_y;
-	*shifted_x = previous_x * cos(env->camera->angle_z) - previous_y * sin(env->camera->angle_z);
-	*shifted_y = previous_x * sin(env->camera->angle_z) + previous_y * cos(env->camera->angle_z);
-}
-
-t_shifted	shift_point(t_point point, t_fdf *env)
-{
-	t_shifted	shifted_point;
-
-	shifted_point.sx = point.x * env->camera->zoom;
-	shifted_point.sy = point.y * env->camera->zoom;
-	shifted_point.sz = point.z * env->camera->zoom;
-	rotate_x(&shifted_point.sy, &shifted_point.sz, env);
-	rotate_y(&shifted_point.sx, &shifted_point.sz, env);
-	rotate_z(&shifted_point.sx, &shifted_point.sy, env);
-	shifted_point.sx += env->camera->shift_x;
-	shifted_point.sy += env->camera->shift_y;
-	shifted_point.color = point.color;
-	return (shifted_point);
-}
-
-void	draw_xline(t_shifted point1, t_shifted point2, t_fdf *env)
-{
-	char		*dst;
-	float		dx;
-	float		dy;
-	float		steep;
-
-	dx = point2.sx - point1.sx;
-	dy = point2.sy - point1.sy;
-	steep = dy / dx;
-	while (((int)point1.sx < (int)point2.sx))
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
-		dst = env->addr + ((int)point1.sy * env->len_size + (int)point1.sx * (env->bpp / 8));
-		*(unsigned int *)dst = point1.color;
-		point1.sx += 0.1;
-		point1.sy += 0.1 * steep;
+		dst = (x * env->bpp / 8) + (y * env->len_size);
+		env->addr[dst] = color;
+		env->addr[++dst] = color >> 8;
+		env->addr[++dst] = color >> 16;
 	}
 }
 
-void	draw_yline(t_shifted point1, t_shifted point2, t_fdf *env)
+void	draw_line_alg(t_point p1, t_point p2, float gradient, t_fdf *env)
 {
-	char		*dst;
-	float		dx;
-	float		dy;
-	float		steep;
+	float	fp1_y;
+	int		x;
 
-	dx = point2.sx - point1.sx;
-	dy = point2.sy - point1.sy;
-	steep = dx / dy;
-	while (((int)point1.sy < (int)point2.sy))
+	fp1_y = (float)p1.y;
+	x = p1.x;
+	while (x <= p2.x)
 	{
-		dst = env->addr + ((int)point1.sy * env->len_size + (int)point1.sx * (env->bpp / 8));
-		*(unsigned int *)dst = point1.color;
-		point1.sy += 0.1;
-		point1.sx += 0.1 * steep;
+		if (env->steep)
+		{
+			put_pixel(env, (int)fp1_y, x,
+				color_gradation(x, p1, p2, gradient));
+		}
+		else
+		{
+			put_pixel(env, x, (int)fp1_y,
+				color_gradation(x, p1, p2, gradient));
+		}
+		fp1_y += gradient;
+		x++;
 	}
+}
+
+void	draw_line(t_point p1, t_point p2, t_fdf *env)
+{
+	float	dx;
+	float	dy;
+	float	gradient;
+
+	env->steep = ft_abs(p2.y - p1.y) > ft_abs(p2.x - p1.x);
+	if (env->steep)
+	{
+		ft_swap(&p1.x, &p1.y);
+		ft_swap(&p2.x, &p2.y);
+	}
+	if (p1.x > p2.x)
+	{
+		ft_swap(&p1.x, &p2.x);
+		ft_swap(&p1.y, &p2.y);
+		p1.reverse = 1;
+	}
+	dx = (float)(p2.x - p1.x);
+	dy = (float)(p2.y - p1.y);
+	gradient = dy / dx;
+	if (dx == 0.0f)
+		gradient = 1.f;
+	draw_line_alg(p1, p2, gradient, env);
 }
 
 void	draw(t_fdf *env)
@@ -100,6 +80,7 @@ void	draw(t_fdf *env)
 	int	x;
 	int	y;
 
+	ft_bzero(env->addr, WIDTH * HEIGHT * (env->bpp / 8));
 	y = 0;
 	while (y < env->map->height)
 	{
@@ -107,11 +88,9 @@ void	draw(t_fdf *env)
 		while (x < env->map->width)
 		{
 			if (x < env->map->width - 1)
-				draw_xline(shift_point(env->map->z_matrix[y][x], env),
-					shift_point(env->map->z_matrix[y][x + 1], env) , env);
+				draw_line(shift_point(env->map->z_matrix[y][x], env), shift_point(env->map->z_matrix[y][x + 1], env), env);
 			if (y < env->map->height - 1)
-				draw_yline(shift_point(env->map->z_matrix[y][x], env),
-					shift_point(env->map->z_matrix[y + 1][x], env), env);
+				draw_line(shift_point(env->map->z_matrix[y][x], env), shift_point(env->map->z_matrix[y + 1][x], env), env);
 			x++;
 		}
 		y++;

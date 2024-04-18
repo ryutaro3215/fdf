@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 22:10:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/25 23:12:35 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:03:12 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-char	**make_split(int fd)
-{
-	char	*line;
-	char	*trimed_line;
-	char	**split;
-
-	line = get_next_line(fd);
-	if (line == NULL)
-		return (NULL);
-	trimed_line = ft_strtrim(line, "\n");
-	split = ft_split(trimed_line, ' ');
-	free(line);
-	free(trimed_line);
-	return (split);
-}
 
 char	*ft_copy_to_char(char *str, char word)
 {
@@ -55,31 +39,6 @@ char	*ft_copy_to_char(char *str, char word)
 	return (copy);
 }
 
-unsigned int	hex_to_dec(char *hex_string)
-{
-	int		decimal_value;
-	int		i;
-	int		digit_value;
-	char	c;
-
-	decimal_value = 0;
-	i = 0;
-	digit_value = 0;
-	while (hex_string[i] != '\0')
-	{
-		c = hex_string[i];
-		if (c >= '0' && c <= '9')
-			digit_value = c - '0';
-		else if (c >= 'A' && c <= 'F')
-			digit_value = c - 'A' + 10;
-		else if (c >= 'a' && c <= 'f')
-			digit_value = c - 'a' + 10;
-		decimal_value = decimal_value * 16 + digit_value;
-		i++;
-	}
-	return (decimal_value);
-}
-
 void	get_min_max(t_fdf *env)
 {
 	int	i;
@@ -99,4 +58,33 @@ void	get_min_max(t_fdf *env)
 		}
 		i++;
 	}
+}
+
+char	*rem_newline(char *line)
+{
+	int		len;
+	char	*remed_str;
+	int		i;
+
+	len = 0;
+	i = 0;
+	while (line[len] != '\0' && line[len] != '\n')
+		len++;
+	remed_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!remed_str)
+		my_error("malloc failed\n", 1);
+	while (i < len)
+	{
+		remed_str[i] = line[i];
+		i++;
+	}
+	remed_str[i] = '\0';
+	return (remed_str);
+}
+
+int	ft_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }

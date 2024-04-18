@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 10:35:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/03/10 20:12:28 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/16 10:51:40 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,46 +32,59 @@ int	get_height(char *file, t_fdf *env)
 	return (env->map->height);
 }
 
-void	get_each_width(int fd, char *line, char **split, t_fdf *env)
+int	count_elnum(char *line, char sep)
 {
-	int		width;
+	int		i;
+	int		count;
 
-	while (true)
+	i = 0;
+	count = 0;
+	while (line[i] != '\0')
 	{
-		width = 0;
-		free(line);
-		free_2d_array((void **)split);
-		line = get_next_line(fd);
-		if (line == NULL)
-			return ;
-		split = ft_split(line, ' ');
-		while (split[width] != NULL)
-			width++;
-		if (width != env->map->width)
-		{
-			free(line);
-			free_2d_array((void **)split);
-			env->map->width = -1;
-			return ;
-		}
+		while (line[i] == sep)
+			i++;
+		if (line[i] != sep && line[i] != '\0')
+			count++;
+		while (line[i] != sep && line[i] != '\0')
+			i++;
 	}
+	return (count);
 }
 
-int	get_width(char *file, t_fdf *env)
+int	get_width(char *file, t_fdf *env, int height)
 {
 	int		width;
 	int		fd;
-	char	**split;
 	char	*line;
 
 	width = 0;
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
-	split = ft_split(line, ' ');
-	while (split[width] != NULL)
-		width++;
-	env->map->width = width;
-	get_each_width(fd, line, split, env);
-	close(fd);
-	return (env->map->width);
+	env->map->width = count_elnum(line, ' ');
+	while (height > 0)
+	{
+		width = count_elnum(line, ' ');
+		if (width != env->map->width)
+			my_error("Invalid map width\n", 1);
+		free(line);
+		line = get_next_line(fd);
+		height--;
+	}
+	return	(width);
+}
+
+bool	check_extension(char *file)
+{
+	char	*extension;
+	int		len;
+
+	extension = ft_strchr(file, '.');
+	if (!extension)
+		return (false);
+	len = ft_strlen(extension);
+	if (len != 4)
+		return (false);
+	if (ft_strncmp(extension, ".fdf", 4))
+		return (false);
+	return (true);
 }
