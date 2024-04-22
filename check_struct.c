@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 10:35:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/16 10:51:40 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:02:38 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,18 @@ int	get_width(char *file, t_fdf *env, int height)
 
 	width = 0;
 	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
+	line = ft_strtrim(rem_newline(get_next_line(fd)), " ");
 	env->map->width = count_elnum(line, ' ');
-	while (height > 0)
+	while (true)
 	{
 		width = count_elnum(line, ' ');
 		if (width != env->map->width)
 			my_error("Invalid map width\n", 1);
 		free(line);
-		line = get_next_line(fd);
 		height--;
+		if (height == 0)
+			break ;
+		line = ft_strtrim(rem_newline(get_next_line(fd)), " ");;
 	}
 	return	(width);
 }

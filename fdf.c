@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/17 13:34:34 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:04:02 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void destructor() {
 int	main(int argc, char **argv)
 {
 	t_fdf	*env;
-	(void)argv;
+
 	if (argc == 2)
 	{
 		env = init_env();
@@ -37,6 +37,5 @@ int	main(int argc, char **argv)
 	}
 	else
 		my_error("Invalid argument number\n", 1);
-	ft_printf("success\n");
 	return (0);
 }

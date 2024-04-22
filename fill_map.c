@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:55:50 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/16 13:33:24 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:03:23 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	fill_point(int i, char **split, t_fdf *env)
 bool	fill_map(char *file, t_fdf *env)
 {
 	int		fd;
-	char	*line;
 	char	*remed_line;
 	char	**split;
 	int		i;
@@ -77,13 +76,12 @@ bool	fill_map(char *file, t_fdf *env)
 		return (false);
 	while (++i < env->map->height)
 	{
-		line = get_next_line(fd);
-		remed_line = rem_newline(line);
-		free(line);
+		remed_line = ft_strtrim(rem_newline(get_next_line(fd)), " ");
 		split = ft_split(remed_line, ' ');
 		free(remed_line);
 		fill_point(i, split, env);
 		free_2d_array(split);
 	}
+	close(fd);
 	return (true);
 }

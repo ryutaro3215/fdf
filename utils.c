@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 22:10:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 11:55:47 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 19:44:40 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ char	*rem_newline(char *line)
 	i = 0;
 	while (line[len] != '\0' && line[len] != '\n')
 		len++;
+	if (line[len] == '\n')
+		len--;
 	remed_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!remed_str)
 		my_error("malloc failed\n", 1);

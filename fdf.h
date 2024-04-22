@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 13:29:03 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 15:39:24 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-# define WIDTH 1500
+# define WIDTH 1600
 # define HEIGHT 950
 # define ESCAPE 53
 

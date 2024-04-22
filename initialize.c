@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:37:13 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 13:15:31 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/18 22:44:20 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_camera	*init_camera(t_fdf *env)
 		return (NULL);
 	camera->zoom = ft_max(WIDTH / env->map->width / 2,
 			HEIGHT / env->map->height / 2);
+	if (camera->zoom <= 0)
+		camera->zoom = 1;
 	camera->shift_x = (WIDTH - camera->zoom * env->map->width) / 2;
 	camera->shift_y = (HEIGHT - camera->zoom * env->map->height) / 2;
 	camera->angle_x = -35.264 * M_PI / 180;

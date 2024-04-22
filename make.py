@@ -13,8 +13,8 @@ def print_random_numbers(width, height, include_color=False):
         print()
 
 def main():
-    width = 10
-    height = 30
+    width = 50
+    height = 50
     include_color = True  # Trueにすると色コードを含む、Falseにすると含まない
     print_random_numbers(width, height, include_color)
 
