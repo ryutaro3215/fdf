@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 20:38:37 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/23 01:29:01 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include "libft/includes/libft.h"
-# include "minilibx_macos/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include <math.h>
 # include <fcntl.h>
 # include <math.h>
@@ -24,7 +24,7 @@
 
 # define WIDTH 1600
 # define HEIGHT 950
-# define ESCAPE 53
+# define ESCAPE 0xff1b
 
 typedef struct s_point
 {

@@ -7,9 +7,9 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT = ft
 INCLUDE = -I $(LIBFT_DIR)/includes -I $(MLX_DIR)
-LIBRARY = -L $(LIBFT_DIR) -l $(LIBFT) -L $(MLX_DIR) -l$(MLX) -framework OpenGL -framework AppKit
-MLX_DIR = minilibx_macos
-MLX = mlx
+LIBRARY = -L $(LIBFT_DIR) -l $(LIBFT) -L $(MLX_DIR) -l$(MLX) -L/usr/X11R6/lib -lmlx -lX11 -lXext -framework OpenGL -framework AppKit
+MLX_DIR = minilibx-linux
+MLX = mlx_Darwin
 
 all: $(NAME)
 
