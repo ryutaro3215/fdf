@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 22:10:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 19:44:40 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 21:36:59 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*rem_newline(char *line)
 		i++;
 	}
 	remed_str[i] = '\0';
+	free(line);
 	return (remed_str);
 }
 

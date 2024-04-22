@@ -6,7 +6,7 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:55:50 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 20:38:57 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:45:05 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ unsigned int	get_color(char *point)
 	{
 		num_and_color = ft_split(point, ',');
 		color = hex_to_dec(num_and_color[1]);
+		free_2d_array(num_and_color);
 	}
 	return (color);
 }
@@ -68,6 +69,7 @@ bool	fill_map(char *file, t_fdf *env)
 {
 	int		fd;
 	char	*remed_line;
+	char	*tmp;
 	char	**split;
 	int		i;
 
@@ -77,7 +79,9 @@ bool	fill_map(char *file, t_fdf *env)
 		return (false);
 	while (++i < env->map->height)
 	{
-		remed_line = ft_strtrim(rem_newline(get_next_line(fd)), " ");
+		tmp = rem_newline(get_next_line(fd));
+		remed_line = ft_strtrim(tmp, " ");
+		free(tmp);
 		split = ft_split(remed_line, ' ');
 		free(remed_line);
 		fill_point(i, split, env);
