@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 15:39:24 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:38:37 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ t_point			shift_point(t_point point, t_fdf *env);
 
 /* draw */
 void			put_pixel(t_fdf *env, int x, int y, int color);
-void			draw_line_alg(t_point p1, t_point p2, float gradient, t_fdf *env);
+void			draw_line_alg(t_point p1, t_point p2,
+					float gradient, t_fdf *env);
 void			draw_line(t_point p1, t_point p2, t_fdf *env);
 void			draw(t_fdf *env);
 

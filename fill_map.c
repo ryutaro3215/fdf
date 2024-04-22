@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:55:50 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 20:03:23 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:38:57 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	get_z(char *point)
 {
 	char	**num_and_color;
 	int		z;
+
 	if (ft_strchr(point, ',') == NULL)
 	{
 		if (collect_number(point) == false)
@@ -33,7 +34,7 @@ int	get_z(char *point)
 	return (z);
 }
 
-unsigned int		get_color(char *point)
+unsigned int	get_color(char *point)
 {
 	char			**num_and_color;
 	unsigned int	color;

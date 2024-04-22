@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:30:19 by rmatsuba          #+#    #+#             */
-/*   Updated: 2024/04/18 11:39:29 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:40:48 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,5 @@ int	key_press(int keycode, t_fdf *env)
 void	hook_control(t_fdf *env)
 {
 	mlx_hook(env->win, 2, 0, key_press, env);
-	// mlx_hook(env->win, 4, 0, my_mouse_down, env);
-	// mlx_hook(env->win, 5, 0, my_mouse_up, env);
 	mlx_hook(env->win, 17, 0, close_window, env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 10:35:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 20:02:38 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:37:50 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	get_width(char *file, t_fdf *env, int height)
 		height--;
 		if (height == 0)
 			break ;
-		line = ft_strtrim(rem_newline(get_next_line(fd)), " ");;
+		line = ft_strtrim(rem_newline(get_next_line(fd)), " ");
 	}
-	return	(width);
+	return (width);
 }
 
 bool	check_extension(char *file)

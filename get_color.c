@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 23:55:45 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 12:00:54 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:40:35 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ int	make_rgb(int start_color, int end_color, float percent)
 	return ((int)(start_color + (end_color - start_color) * percent));
 }
 
-int color_gradation(int x, t_point p1, t_point p2, float gradient)
+int	color_gradation(int x, t_point p1, t_point p2, float gradient)
 {
-	float percent;
-	int r, g, b;
+	float	percent;
+	int		r;
+	int		g;
+	int		b;
 
 	if (p1.color == p2.color)
 		return (p1.color);
@@ -57,5 +59,6 @@ int color_gradation(int x, t_point p1, t_point p2, float gradient)
 	r = make_rgb((p1.color >> 16) & 0xFF, (p2.color >> 16) & 0xFF, percent);
 	g = make_rgb((p1.color >> 8) & 0xFF, (p2.color >> 8) & 0xFF, percent);
 	b = make_rgb((p1.color) & 0xFF, (p2.color) & 0xFF, percent);
-	return ((int)(r * gradient) << 16) | ((int)(g * gradient) << 8) | (int)(b * gradient);
+	return (((int)(r * gradient) << 16) |
+		((int)(g * gradient) << 8) | (int)(b * gradient));
 }

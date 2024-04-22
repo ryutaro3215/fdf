@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:19:17 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/18 15:35:34 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/22 20:38:11 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,11 @@ void	draw(t_fdf *env)
 		while (x < env->map->width)
 		{
 			if (x < env->map->width - 1)
-				draw_line(shift_point(env->map->z_matrix[y][x], env), shift_point(env->map->z_matrix[y][x + 1], env), env);
+				draw_line(shift_point(env->map->z_matrix[y][x], env),
+					shift_point(env->map->z_matrix[y][x + 1], env), env);
 			if (y < env->map->height - 1)
-				draw_line(shift_point(env->map->z_matrix[y][x], env), shift_point(env->map->z_matrix[y + 1][x], env), env);
+				draw_line(shift_point(env->map->z_matrix[y][x], env),
+					shift_point(env->map->z_matrix[y + 1][x], env), env);
 			x++;
 		}
 		y++;
