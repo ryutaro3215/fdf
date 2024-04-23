@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:55:50 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 21:45:05 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:16:45 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_z(char *point)
+int	get_z(t_fdf *env, char *point)
 {
 	char	**num_and_color;
 	int		z;
@@ -20,14 +20,17 @@ int	get_z(char *point)
 	if (ft_strchr(point, ',') == NULL)
 	{
 		if (collect_number(point) == false)
-			my_error("Invalid number in map\n", 1);
+			free_env(env, "Invalid number in map\n", 1);
 		z = ft_atoi(point);
 	}
 	else
 	{
 		num_and_color = ft_split(point, ',');
 		if (collect_number(num_and_color[0]) == false)
+		{
+			free_2d_array(num_and_color);
 			my_error("Invalid number in map\n", 1);
+		}
 		z = ft_atoi(num_and_color[0]);
 		free_2d_array(num_and_color);
 	}
@@ -59,7 +62,7 @@ void	fill_point(int i, char **split, t_fdf *env)
 	{
 		env->map->z_matrix[i][j].x = j;
 		env->map->z_matrix[i][j].y = i;
-		env->map->z_matrix[i][j].z = get_z(split[j]);
+		env->map->z_matrix[i][j].z = get_z(env, split[j]);
 		env->map->z_matrix[i][j].color = get_color(split[j]);
 		j++;
 	}

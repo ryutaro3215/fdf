@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 10:35:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 21:41:00 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:24:55 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	get_height(char *file, t_fdf *env)
 	height = 0;
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
+	if (line == NULL)
+		free_env(env, "empty file\n", 1);
 	while (line != NULL)
 	{
 		free(line);
@@ -66,10 +68,10 @@ int	get_width(char *file, t_fdf *env, int height)
 	while (true)
 	{
 		width = count_elnum(line, ' ');
-		if (width != env->map->width)
-			my_error("Invalid map width\n", 1);
 		free(tmp);
 		free(line);
+		if (width != env->map->width)
+			free_env(env, "width error\n", 1);
 		height--;
 		if (height == 0)
 			break ;

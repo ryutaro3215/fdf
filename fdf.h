@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/23 01:29:01 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/23 14:23:02 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ bool			eachline_num(char **split);
 
 /* fill_map */
 unsigned int	get_color(char *point);
-int				get_z(char *point);
+int				get_z(t_fdf *env, char *point);
 void			fill_point(int i, char **split, t_fdf *env);
 bool			fill_map(char *file, t_fdf *env);
 
@@ -129,6 +129,7 @@ char			*rem_newline(char *line);
 int				ft_max(int a, int b);
 
 /* error */
+void			free_env(t_fdf *env, char *str, int errnum);
 void			my_error(char *str, int ret);
 void			free_2d_array(char **array);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:07:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 21:43:34 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:24:24 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	check_argv(char *file, t_fdf *env)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		my_error("file error\n", 1);
+		free_env(env, "open Error", 1);
 	height = get_height(file, env);
 	width = get_width(file, env, height);
 	if ((width <= 1 && height <= 1) || width == -1)
-		my_error("file error\n", 1);
+		free_env(env, "Invalid map\n", 1);
 	if (!malloc_map(env))
-		my_error("malloc_map failed\n", 1);
+		free_env(env, "malloc_map failed\n", 1);
 	if (!fill_map(file, env))
 		my_error("fill_map failed\n", 1);
 	get_min_max(env);

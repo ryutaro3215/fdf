@@ -6,7 +6,7 @@
 /*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:41 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/23 01:22:46 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/23 14:21:14 by ryutaro3205      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ int	main(int argc, char **argv)
 	{
 		env = init_env();
 		if (!env || !check_extension(argv[1]))
-			my_error("env Error\n", 1);
+			free_env(env, "Error env\n", 1);
 		env->map = init_map();
 		if (!env->map)
-			my_error("map Error\n", 1);
+			free_env(env, "Error Map\n", 1);
 		check_argv(argv[1], env);
 		env->camera = init_camera(env);
+		if (!env->camera)
+			free_env(env, "Error Camera\n", 1);
 		draw(env);
 		hook_control(env);
 		mlx_loop(env->mlx);
