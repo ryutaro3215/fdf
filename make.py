@@ -13,9 +13,9 @@ def print_random_numbers(width, height, include_color=False):
         print()
 
 def main():
-    width = 50
-    height = 50
-    include_color = True  # Trueにすると色コードを含む、Falseにすると含まない
+    width = 4
+    height = 40
+    include_color = False  # Trueにすると色コードを含む、Falseにすると含まない
     print_random_numbers(width, height, include_color)
 
 if __name__ == "__main__":

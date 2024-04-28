@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 18:55:50 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/23 14:16:45 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/28 22:22:32 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,14 @@ bool	fill_map(char *file, t_fdf *env)
 {
 	int		fd;
 	char	*remed_line;
-	char	*tmp;
 	char	**split;
 	int		i;
 
 	i = -1;
 	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (false);
 	while (++i < env->map->height)
 	{
-		tmp = rem_newline(get_next_line(fd));
-		remed_line = ft_strtrim(tmp, " ");
-		free(tmp);
+		remed_line = make_remedline(fd);
 		split = ft_split(remed_line, ' ');
 		free(remed_line);
 		fill_point(i, split, env);

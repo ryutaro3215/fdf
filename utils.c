@@ -6,7 +6,7 @@
 /*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 22:10:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/22 21:36:59 by rmatsuba         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:31:56 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ char	*rem_newline(char *line)
 	i = 0;
 	while (line[len] != '\0' && line[len] != '\n')
 		len++;
-	if (line[len] == '\n')
-		len--;
 	remed_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!remed_str)
 		my_error("malloc failed\n", 1);
@@ -90,4 +88,18 @@ int	ft_max(int a, int b)
 	if (a > b)
 		return (a);
 	return (b);
+}
+
+bool	check_newline(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '\n')
+			return (true);
+		i++;
+	}
+	return (false);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 10:25:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/23 14:23:02 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/28 21:45:53 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ t_map			*init_map(void);
 /* check_struct */
 int				get_height(char *file, t_fdf *env);
 int				count_elnum(char *line, char sep);
+char			*make_remedline(int	fd);
 int				get_width(char *file, t_fdf *env, int height);
 bool			check_extension(char *file);
-
 /* check_arg */
 bool			malloc_map(t_fdf *env);
 void			check_argv(char *file, t_fdf *env);
@@ -127,6 +127,7 @@ char			*ft_copy_to_char(char *str, char word);
 void			get_min_max(t_fdf *env);
 char			*rem_newline(char *line);
 int				ft_max(int a, int b);
+bool		check_newline(char *line);
 
 /* error */
 void			free_env(t_fdf *env, char *str, int errnum);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_struct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 10:35:46 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/23 14:24:55 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/28 22:32:31 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,29 @@ int	count_elnum(char *line, char sep)
 	count = 0;
 	while (line[i] != '\0')
 	{
-		while (line[i] == sep)
-			i++;
 		if (line[i] != sep && line[i] != '\0')
+		{
 			count++;
-		while (line[i] != sep && line[i] != '\0')
+			while (line[i] != sep && line[i] != '\0')
+				i++;
+		}
+		else
 			i++;
 	}
 	return (count);
+}
+
+char	*make_remedline(int fd)
+{
+	char	*return_line;
+	char	*before_line;
+
+	before_line = get_next_line(fd);
+	if (check_newline(before_line) == true)
+		return_line = rem_newline(before_line);
+	else
+		return_line = before_line;
+	return (return_line);
 }
 
 int	get_width(char *file, t_fdf *env, int height)
@@ -58,26 +73,24 @@ int	get_width(char *file, t_fdf *env, int height)
 	int		width;
 	int		fd;
 	char	*line;
-	char	*tmp;
 
-	width = 0;
 	fd = open(file, O_RDONLY);
-	tmp = rem_newline(get_next_line(fd));
-	line = ft_strtrim(tmp, " ");
+	line = make_remedline(fd);
 	env->map->width = count_elnum(line, ' ');
-	while (true)
+	free(line);
+	while (height > 1)
 	{
+		line = make_remedline(fd);
 		width = count_elnum(line, ' ');
-		free(tmp);
 		free(line);
 		if (width != env->map->width)
-			free_env(env, "width error\n", 1);
+		{
+			close(fd);
+			free_env(env, "Invalid map width\n", 1);
+		}
 		height--;
-		if (height == 0)
-			break ;
-		tmp = rem_newline(get_next_line(fd));
-		line = ft_strtrim(tmp, " ");
 	}
+	close(fd);
 	return (width);
 }
 

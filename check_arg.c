@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ryutaro320515 <ryutaro320515@student.42    +#+  +:+       +#+        */
+/*   By: rmatsuba <rmatsuba@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:07:52 by ryutaro3205       #+#    #+#             */
-/*   Updated: 2024/04/23 14:24:24 by ryutaro3205      ###   ########.fr       */
+/*   Updated: 2024/04/28 18:15:37 by rmatsuba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,7 @@ void	check_argv(char *file, t_fdf *env)
 {
 	int		width;
 	int		height;
-	int		fd;
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		free_env(env, "open Error", 1);
 	height = get_height(file, env);
 	width = get_width(file, env, height);
 	if ((width <= 1 && height <= 1) || width == -1)
